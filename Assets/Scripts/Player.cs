@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
         
     }
 
-    void OnCollisionEnter(Collision other){
+    void OnTriggerEnter(Collider other){
         if(other.transform.tag == "Collectible"){
             objects++;
             Destroy(other.gameObject);
