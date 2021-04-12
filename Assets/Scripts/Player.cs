@@ -7,10 +7,12 @@ public class Player : MonoBehaviour
 {
     public int objects = 0;
     public Text objectText;
+    public int hp = 2;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        hp = 2;
     }
 
     // Update is called once per frame
@@ -23,6 +25,13 @@ public class Player : MonoBehaviour
         if(other.transform.tag == "Collectible"){
             objects++;
             Destroy(other.gameObject);
+        }
+    }
+
+    public void TakeDamage(int damage){
+        hp -=damage;
+        if(hp <= 0){
+            Debug.LogWarning("MORREU!");
         }
     }
 }
