@@ -7,6 +7,9 @@ public class Player : MonoBehaviour
 {
     public int objects = 0;
     public Text objectText;
+    public GameObject hintText;
+    [SerializeField]
+    private GameObject playerShotgun;
     public int hp = 2;
 
     // Start is called before the first frame update
@@ -26,8 +29,25 @@ public class Player : MonoBehaviour
             objects++;
             Destroy(other.gameObject);
         }
+
+        if(other.transform.tag == "Shotgun"){
+            hintText.SetActive(true);
+            hintText.GetComponent<Text>().text = "Pressione E para pegar";
+        }
     }
 
+    void OnTriggerStay(Collider other){
+        if(other.transform.tag == "Shotgun" && Input.GetKeyDown(KeyCode.E)){
+            Destroy(other.gameObject);
+            playerShotgun.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit(Collider other){
+        if(other.transform.tag == "Shotgun"){
+            hintText.SetActive(false);
+        }
+    }
     public void TakeDamage(int damage){
         hp -=damage;
         if(hp <= 0){
